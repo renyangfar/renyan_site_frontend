@@ -1,10 +1,11 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 export const LoginRegisterWrapper = styled.div`
 	position: relative;
 	width: 400px;
+	height: 710px;
 	margin: 80px auto;
-	background-color: #eee;
+	background-color: rgb(250, 250, 250);
 	box-shadow: 0 0 8px rgba(0,0,0,.2);
 `;
 
@@ -63,8 +64,15 @@ export const FormWrapper = styled.div`
 		border-bottom: 1px solid #aaa; 
 		outline-style: none;
 		font-size: 15px;
-		background-color: #eee;
+		background-color: rgb(250, 250, 250);
 		border-radius: 3px;
+		&:-webkit-autofill,
+		&:-webkit-autofill:hover,
+		&:-webkit-autofill:focus,
+		&:-webkit-autofill:active {
+			-webkit-transition: "color 9999s ease-out, background-color 9999s ease-out";
+			-webkit-transition-delay: 9999s;
+		}
 	}
 `;
 
@@ -73,6 +81,16 @@ export const UserName = styled.input`
 
 export const Passwd = styled.input`
 `
+
+const rainbow = keyframes`
+  0% {
+    opacity: 0.7;
+  }
+  100% {
+	opacity: 1;
+	transform: scale(1.2);
+  }
+`;
 
 export const Commit = styled.button`
 	display: block;
@@ -85,11 +103,23 @@ export const Commit = styled.button`
 	background-color: #009688;
 	color: #fff;
 	border: none;
+	outline: none;
 	box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+	&: hover {
+		box-shadow: 0 3px 6px 0 rgba(0,0,0,0.2), 0 3px 12px 0 rgba(0,0,0,0.2);
+	}
+	&: active {
+		animation: 0.5s ${rainbow};
+	}
 `
+
+
+
 export const Forget = styled.div`
 	text-align: center;
 	color: rgb(3, 155, 229);
 	cursor: pointer;
-	margin-bottom: 200px;
+	&: hover {
+		color: rgb(3, 200, 229);
+	}
 `
