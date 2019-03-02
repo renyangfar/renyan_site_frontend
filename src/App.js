@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-// import Header from './common/header/index.js'
+import Header from './common/header/index.js'
 import store from './store/index.js'
 import { Provider } from 'react-redux'
 
@@ -15,7 +15,7 @@ class App extends Component {
       <Provider store={store}>
         <BrowserRouter>
           <div>
-            {/* <Header /> */}
+            <Header />
             <Route path='/' exact component={Home}></Route>
             <Route path='/loginRegister/' exact component={LoginRegister}></Route>
             {/* <Route path='/write/' exact component={Write}></Route>

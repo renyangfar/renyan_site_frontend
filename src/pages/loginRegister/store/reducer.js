@@ -15,6 +15,8 @@ export default (state = defaultState, action) => {
 			return state.set('login', action.value).set('error_msg', '');
 		case constants.ERROR_MSG:
 			return state.set('error_msg', action.value);
+		case constants.LOGOUT:
+			return state.set('login', action.value)
 		default:
 			return state;
 	}
