@@ -11,19 +11,10 @@ export const logout = () => ({
 	value: false
 })
 
-
-export const login = (accout, password) => {
-	return (dispatch) => {
-		axios.get('/api/login.json?account=' + accout + '&password=' + password).then((res) => {
-			const result = res.data.data;
-			if (result) {
-				dispatch(changeLogin())
-			}else {
-				alert('登陆失败')
-			}
-		})
-	}
-}
+export const displayError = (data) => ({
+	type: constants.ERROR_MSG,
+	value: data
+})
 
 export const handleChangeView = (in_login_page) => {
 	return (dispatch) => {
@@ -31,5 +22,53 @@ export const handleChangeView = (in_login_page) => {
 			type: constants.CHANGE_VIEW,
 			value: in_login_page
 		}))
+	}
+}
+
+export const register = (username, password, password_confirm, email) => {
+	return (dispatch) => {
+		const req_data = { username: username, password: password, password_confirm: password_confirm, email: email }
+		var bodyFormData = new FormData();
+		for (const [key, value] of Object.entries(req_data)) {
+			bodyFormData.set(key, value);
+		  }
+		axios({
+			method: 'post',
+			url: '/user/register',
+			data: bodyFormData,
+			config: { headers: { 'Content-Type': 'multipart/form-data' } }
+		})
+			.then((res) => {
+				const result = res.data
+				if (result.success) {
+					dispatch(changeLogin())
+				} else {
+					dispatch(displayError(result.data))					
+				}
+			})
+	}
+}
+
+export const login = (username, password) => {
+	return (dispatch) => {
+		const req_data = { username: username, password: password}
+		var bodyFormData = new FormData();
+		for (const [key, value] of Object.entries(req_data)) {
+			bodyFormData.set(key, value);
+		  }
+		axios({
+			method: 'post',
+			url: '/user/login',
+			data: bodyFormData,
+			config: { headers: { 'Content-Type': 'multipart/form-data' } }
+		})
+			.then((res) => {
+				const result = res.data
+				if (result.success) {
+					dispatch(changeLogin())
+				} else {
+					dispatch(displayError(result.data))					
+				}
+			})
 	}
 }

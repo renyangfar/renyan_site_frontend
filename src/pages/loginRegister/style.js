@@ -119,7 +119,12 @@ export const Forget = styled.div`
 	text-align: center;
 	color: rgb(3, 155, 229);
 	cursor: pointer;
+	margin-bottom: 40px;
 	&: hover {
 		color: rgb(3, 200, 229);
 	}
+`
+export const ErrorMsg = styled.div`
+	text-align: center;
+	color: #f00;
 `
