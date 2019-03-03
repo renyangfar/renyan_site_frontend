@@ -30,6 +30,7 @@ export const Segment = styled.h2`
     font-size: 14px;
     line-height: 21px;
     color: rgb(89, 89, 89);
+    overflow: hidden;
 `
 export const ImageArea = styled.div`
     float: right;
@@ -40,7 +41,6 @@ export const ImageArea = styled.div`
 export const OtherArea = styled.div`
     /* overflow: hidden; */
     margin-top: 10px;
-    width: 100%;
     height: 20px;
     /* background: #333; */
     .img_head{
@@ -52,9 +52,9 @@ export const OtherArea = styled.div`
         margin-right: 10px;
     }
     span {
-        font-size: 16px;
+        font-size: 12px;
         line-height: 20px;
-        color: rgb(89, 89, 89);
+        color: rgb(140,140, 140);
 
     }
 `
@@ -69,12 +69,17 @@ export const HrLine = styled.hr`
 `
 
 export const LoadMore = styled.div`
-    height: 30px;
-    width: 680px;
-    color: rgb(89, 89, 89);
-    background-image: linear-gradient(0deg,#f5f5f5,#fff); 
-    border-radius: 5px;
+    height: 16;
+    width: 600px;
+    color: rgb(140, 140, 140);
+    background-color: #eee; 
+    border-radius: 10px;
+    padding: 13px;
     text-align: center;
     margin: 50px auto;
+    box-shadow: 0 2px 1px 1px #eee;
     cursor: pointer;
+    .span {
+        line-height: 16px;
+    }
 `

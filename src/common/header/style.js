@@ -17,7 +17,7 @@ export const Logo = styled.div`
     display: block;
     width: 80px;
     height: 60px;
-    left: 32%;
+    left: 500px;
     background: url(${logoPic});   
     background-size: contain;
     cursor: pointer;
@@ -29,7 +29,7 @@ export const SearchWrapper = styled.input.attrs({
     position: absolute;
     width: 200px;
     height: 30px;
-    left: 40%;
+    left: 600px;
     top: 15px;
     border-left: none;
     border-right: none;
@@ -41,7 +41,7 @@ export const SearchWrapper = styled.input.attrs({
 
 export const Blog = styled.div`
     position: absolute;
-    left: 58%;
+    left: 900px;
     font-size: 16px;
     line-height: 60px;
     margin-left: 20px;
@@ -52,18 +52,18 @@ export const Blog = styled.div`
 
 
 export const Login = styled.div`
-    float: right;
+    position: absolute;
+    left: 1400px;
     font-size: 16px;
     line-height: 60px;
     cursor: pointer;
 `
 
 export const Me = styled.div`
-    float: right;
+    position: absolute;
+    left: 1450px;
     font-size: 16px;
     line-height: 60px;
-    margin-left: 20px;
-    margin-right: 20px;
     cursor: pointer;
 `
 
