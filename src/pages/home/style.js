@@ -5,12 +5,18 @@ export const ArticleWrapper = styled.div`
     width: 680px;
     height: 180;
     padding: 10px;
-    overflow:hidden;
+    /* overflow:hidden; */
     /* background-color: #eee; */
+`
+export const ContentArea = styled.div`
+    width: 100%;
+    height: 160px;
+    /* background-color: #111; */
+
 `
 export const TextArea = styled.div`
     float: left;
-    width: 430px;
+    width: ${(props) => props.width};
     height: 90%;
     /* background-color: #aaa; */
 `
@@ -32,11 +38,25 @@ export const ImageArea = styled.div`
     /* background-color: #888; */
 `
 export const OtherArea = styled.div`
-    overflow: hidden;
+    /* overflow: hidden; */
+    margin-top: 10px;
     width: 100%;
-    height: 10%;
-    font-size: 16px;
+    height: 20px;
     /* background: #333; */
+    .img_head{
+        height: 20px;
+        width: 20px;
+        border-radius: 10px;
+        margin-bottom: 0;
+        line-height: 20px;
+        margin-right: 10px;
+    }
+    span {
+        font-size: 16px;
+        line-height: 20px;
+        color: rgb(89, 89, 89);
+
+    }
 `
 export const HrLine = styled.hr`
     display: block;
@@ -46,4 +66,15 @@ export const HrLine = styled.hr`
     border-top: 1px solid #ddd;
     margin: 10px auto;
     padding: 0;
+`
+
+export const LoadMore = styled.div`
+    height: 30px;
+    width: 680px;
+    color: rgb(89, 89, 89);
+    background-image: linear-gradient(0deg,#f5f5f5,#fff); 
+    border-radius: 5px;
+    text-align: center;
+    margin: 50px auto;
+    cursor: pointer;
 `

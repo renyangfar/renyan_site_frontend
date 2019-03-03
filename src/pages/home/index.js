@@ -1,53 +1,67 @@
 import React, { PureComponent, Fragment } from 'react'
 import { connect } from 'react-redux';
-import { ArticleWrapper, TextArea, Title, Segment, ImageArea, OtherArea, HrLine } from './style';
-
+import { Link } from 'react-router-dom';
+import { ArticleWrapper, ContentArea, TextArea, Title, Segment, ImageArea, OtherArea, HrLine, LoadMore } from './style';
+import { actionCreators } from './store/'
 
 
 class Home extends PureComponent {
 
+    componentDidMount() {
+        this.props.getContent();
+    }
 
     render() {
+        const { page, articleList, getContent } = this.props;
         return (
             <Fragment>
-                <ArticleWrapper>
-                    <TextArea>
-                        <Title>前端的未来</Title>
-                        <Segment>近期学到一个词：Digital Twin(数字孪生)，简单来讲就是在计算机世界给现实世界的物体（飞船/城市）、系统（电力/交通）建立数字化镜像，让数字世界和物理世界更好地交互，数字大屏也可以算这种技术一种应用场景。
-                   </Segment>
-                    </TextArea>
-                    <ImageArea>
-                        <img style={{ width: "100%" }} src="https://cdn.nlark.com/yuque/0/2019/png/84141/1551232435806-ee877313-dbc0-4201-891b-98dbc98c49c4.png?x-oss-process=image/resize,m_fill,h_268,w_392"></img>
-                    </ImageArea>
-                    <OtherArea>
-                        <p>413 颗稻谷2019-03-02 21:09</p>
-                    </OtherArea>
-                </ArticleWrapper>
-                <HrLine></HrLine>
-                <ArticleWrapper>
-                    <TextArea>
-                        <Title>前端的未来</Title>
-                        <Segment>近期学到一个词：Digital Twin(数字孪生)，简单来讲就是在计算机世界给现实世界的物体（飞船/城市）、系统（电力/交通）建立数字化镜像，让数字世界和物理世界更好地交互，数字大屏也可以算这种技术一种应用场景。
-                   </Segment>
-                    </TextArea>
-                    <ImageArea>
-                        <img style={{ width: "100%" }} src="https://cdn.nlark.com/yuque/0/2019/png/84141/1551232435806-ee877313-dbc0-4201-891b-98dbc98c49c4.png?x-oss-process=image/resize,m_fill,h_268,w_392"></img>
-                    </ImageArea>
-                    <OtherArea>
-                        <p>413 颗稻谷2019-03-02 21:09</p>
-                    </OtherArea>
-                </ArticleWrapper>
-                <HrLine></HrLine>
+                {articleList.map((item) => {
+                    return (
+                        <div key={item.get('title')}>
+                            <ArticleWrapper>
+                                {!item.get('img', '') ?
+                                    <ContentArea>
+                                        <TextArea width="100%">
+                                            <Title>{item.get('title')}</Title>
+                                            <Segment>{item.get('body')}</Segment>
+                                        </TextArea></ContentArea> :
+                                    <ContentArea>
+                                        <TextArea width="430px">
+                                            <Title>{item.get('title')}</Title>
+                                            <Segment>{item.get('body')}</Segment>
+                                        </TextArea>
+                                        <ImageArea>
+                                            <img alt='' style={{ width: "100%" }} src={item.get('img')}></img>
+                                        </ImageArea>
+                                    </ContentArea>
+                                }
+                                <OtherArea><Link to=''><img alt='' src=
+                                    'https://cdn.nlark.com/yuque/0/2019/jpeg/anonymous/1551427285117-f557f584-22d8-4547-841e-4b7f5c20269c.jpeg?x-oss-process=image/resize,m_fill,w_192,h_192/format,png'
+                                    className='img_head'></img></Link>
+                                    <span>{item.get('author') + ` 发布于 ` + item.get('created')}</span>
+                                </OtherArea>
+                            </ArticleWrapper>
+                            <HrLine></HrLine>
+                        </div>
+                    )
+                })}
+                <LoadMore onClick={ () => getContent(page)}>加载更多</LoadMore>
             </Fragment>
-            
+
         )
     }
 
 }
 
-const mapDispatch = (dispatch) => ({
+const mapState = (state) => ({
+    articleList: state.getIn(['home', 'articleList']),
+    page: state.getIn(['home', 'page']),
 })
 
-const mapState = (state) => ({
+const mapDispatch = (dispatch) => ({
+    getContent(page=0) {
+        dispatch(actionCreators.getContent(page));
+    }
 })
+
 export default connect(mapState, mapDispatch)(Home);
