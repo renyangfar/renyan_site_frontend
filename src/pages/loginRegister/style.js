@@ -4,7 +4,7 @@ export const LoginRegisterWrapper = styled.div`
 	position: relative;
 	width: 400px;
 	height: 710px;
-	margin: 80px auto;
+	margin: auto;
 	background-color: rgb(250, 250, 250);
 	box-shadow: 0 0 8px rgba(0,0,0,.2);
 `;
@@ -94,7 +94,7 @@ const rainbow = keyframes`
 
 export const Commit = styled.button`
 	display: block;
-	margin: auto;
+	margin: 100px auto;
 	width: 120px;
 	line-height:50px;
 	font-size: 20px;

@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { HeaderWrapper, Logo, SearchWrapper, Blog, Login, Me } from './style';
 import { actionCreators as loginRegisterActionCreators } from '../../pages/loginRegister/store';
+import logoPic from '../../statics/logo.png'
+
 
 class Header extends Component {
 
@@ -12,7 +14,7 @@ class Header extends Component {
 			<Fragment>
 				<HeaderWrapper>
 					<Link to='/'>
-						<Logo></Logo>
+						<Logo src={logoPic}></Logo>
 					</Link>
 					<SearchWrapper onKeyDown={(e) => this.props.handleKeyDown(e)}>
 					</SearchWrapper>

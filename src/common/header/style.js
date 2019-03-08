@@ -1,25 +1,22 @@
 import styled from 'styled-components'
 
-import logoPic from '../../statics/logo.png'
 
 
-export const HeaderWrapper = styled.div`
-    width: 100%;
+export const HeaderWrapper = styled.header`
+    position: relative;
+    top: 0px;
+    width: 1024px;
     height: 60px;
-    box-shadow: rgba(0,0,0, 0.05) 0px 1px 2px 1px;
-    color: rgb(89, 89, 89);
     margin-bottom: 80px;
+    box-shadow: rgba(0,0,0, 0.05) 2px 2px 2px 1px;
+    color: #009688;
 `
 
-export const Logo = styled.div`
+export const Logo = styled.img`
     position: absolute;
-    top: 0;
-    display: block;
     width: 80px;
     height: 60px;
-    left: 500px;
-    background: url(${logoPic});   
-    background-size: contain;
+    left: 20px;
     cursor: pointer;
 `;
 
@@ -27,10 +24,10 @@ export const SearchWrapper = styled.input.attrs({
     placeholder: '搜索'
 })`
     position: absolute;
+    left: 350px;
+    bottom:5px;
     width: 200px;
     height: 30px;
-    left: 600px;
-    top: 15px;
     border-left: none;
     border-right: none;
     border-top: none;
@@ -39,13 +36,11 @@ export const SearchWrapper = styled.input.attrs({
 ;
 `
 
-export const Blog = styled.div`
+export const Blog = styled.span`
     position: absolute;
-    left: 900px;
+    left: 650px;
     font-size: 16px;
     line-height: 60px;
-    margin-left: 20px;
-    margin-right: 20px;
     cursor: pointer;
 `
 
@@ -53,15 +48,19 @@ export const Blog = styled.div`
 
 export const Login = styled.div`
     position: absolute;
-    left: 1400px;
+    left: 850px;
     font-size: 16px;
     line-height: 60px;
     cursor: pointer;
+    color: #009688;
+    &:active {
+        color: rgb(89, 89, 89);
+    }
 `
 
 export const Me = styled.div`
     position: absolute;
-    left: 1450px;
+    left: 950px;
     font-size: 16px;
     line-height: 60px;
     cursor: pointer;

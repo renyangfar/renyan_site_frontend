@@ -1,4 +1,12 @@
-import { createGlobalStyle } from 'styled-components'
+import styled, { createGlobalStyle } from 'styled-components'
+
+export const Page = styled.div`
+	position: relative;
+	margin: auto;
+	width: 1024px;
+	height: 100%;
+
+`
 
 export const GlobalStyle = createGlobalStyle`
 html, body, div, span, applet, object, iframe,
