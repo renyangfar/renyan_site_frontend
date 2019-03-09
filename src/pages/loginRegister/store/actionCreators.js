@@ -25,6 +25,15 @@ export const handleChangeView = (in_login_page) => {
 	}
 }
 
+export const setLoginStat = (login) => {
+	return (dispatch) => {
+		dispatch(({
+			type: constants.SET_LOGIN_STAT,
+			value: login
+		}))
+	}
+}
+
 export const register = (username, password, password_confirm, email) => {
 	return (dispatch) => {
 		const req_data = { username: username, password: password, password_confirm: password_confirm, email: email }

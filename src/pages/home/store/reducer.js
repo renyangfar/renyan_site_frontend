@@ -9,8 +9,16 @@ const defaultState = fromJS({
 export default (state = defaultState, action) => {
     switch (action.type) {
         case constants.GET_CONTENT:
+            if(action.value.length === 0){
+                alert("无更多内容")
+                return state
+            }
+            let articleList = state.get('articleList');
+            if(action.page === 0){
+                articleList = fromJS([]);
+            } 
             return state.merge({
-                articleList: state.get('articleList').concat(fromJS(action.value)),
+                articleList: articleList.concat(fromJS(action.value)),
                 page: state.get('page') + 1
             })
         default:

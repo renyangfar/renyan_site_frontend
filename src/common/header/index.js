@@ -4,9 +4,34 @@ import { Link } from 'react-router-dom'
 import { HeaderWrapper, Logo, SearchWrapper, Blog, Login, Me } from './style';
 import { actionCreators as loginRegisterActionCreators } from '../../pages/loginRegister/store';
 import logoPic from '../../statics/logo.png'
+import { withRouter } from 'react-router-dom';
+import { compose } from 'redux';
 
 
 class Header extends Component {
+
+	handleKeyDown = (e, keySearch) => {
+		if (e.keyCode === 13 && keySearch.value.length > 0) {
+			var data = { username: '', keySearch: keySearch.value };
+			var path = {
+				pathname: '/search',
+				query: data,
+			}
+			this.props.history.push(path);
+		}
+	}
+
+	componentDidMount() {
+		let login = localStorage.getItem('login', false);
+		if(login==='true'){
+			login=true;
+		}else{
+			login=false;
+		}
+		this.props.setLoginStat(login);
+	}
+
+
 
 	render() {
 		const { login } = this.props;
@@ -16,7 +41,7 @@ class Header extends Component {
 					<Link to='/'>
 						<Logo src={logoPic}></Logo>
 					</Link>
-					<SearchWrapper onKeyDown={(e) => this.props.handleKeyDown(e)}>
+					<SearchWrapper onKeyDown={(e) => this.handleKeyDown(e, this.keySearch)} ref={(input) => { this.keySearch = input }}>
 					</SearchWrapper>
 					<Blog>我的博客</Blog>
 					<Me>我的</Me>
@@ -38,16 +63,13 @@ const mapStateToProps = (state) => {
 
 const mapDispathToProps = (dispatch) => {
 	return {
-		handleKeyDown(e) {
-			if (e.keyCode === 13) {
-				console.log('执行搜索');
-			}
-		},
 		logout() {
 			dispatch(loginRegisterActionCreators.logout())
+		},
+		setLoginStat(login) {
+			dispatch(loginRegisterActionCreators.setLoginStat(login))
 		}
-
 	}
 }
 
-export default connect(mapStateToProps, mapDispathToProps)(Header);
+export default compose(withRouter, connect(mapStateToProps, mapDispathToProps))(Header);
