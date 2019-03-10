@@ -7,9 +7,8 @@ import { Provider } from 'react-redux'
 import Home from './pages/home';
 import Search from './pages/search'
 
-// import Detail from './pages/detail/loadable';
+import Detail from './pages/detail/';
 import LoginRegister  from './pages/loginRegister';
-// import Write from './pages/write';
 
 class App extends Component {
   render() {
@@ -21,8 +20,7 @@ class App extends Component {
             <Route path='/' exact component={Home}></Route>
             <Route path='/loginRegister/' exact component={LoginRegister}></Route>
             <Route path='/search' exact component={Search}></Route>
-            {/* <Route path='/write/' exact component={Write}></Route>
-            <Route path='/detail/:id' exact component={Detail}></Route> */}
+            <Route path='/detail/:id' exact component={Detail}></Route>
           </div>
         </BrowserRouter>
       </Provider>

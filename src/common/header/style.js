@@ -10,6 +10,7 @@ export const HeaderWrapper = styled.header`
     margin-bottom: 80px;
     box-shadow: rgba(0,0,0, 0.05) 2px 2px 2px 1px;
     color: #009688;
+    background-color: rgb(252,252,252);
 `
 
 export const Logo = styled.img`

@@ -5,7 +5,6 @@ export const Page = styled.div`
 	margin: auto;
 	width: 1024px;
 	height: 100%;
-
 `
 
 export const GlobalStyle = createGlobalStyle`
@@ -36,6 +35,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+	background-color: rgb(249, 249, 249);
 }
 ol, ul {
 	list-style: none;

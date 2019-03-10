@@ -32,15 +32,19 @@ class Home extends PureComponent {
                                 {!item.get('img', '') ?
                                     <ContentArea>
                                         <TextArea width="100%">
-                                            <Title>{item.get('title')}</Title>
-                                            <Segment>{item.get('body')}</Segment>
+                                            <Link key={item.get('title')} to={'/detail/' + item.get('_id')} style={{textDecoration: 'none'}}>
+                                                <Title>{item.get('title')}</Title>
+                                                <Segment>{item.get('body')}</Segment>
+                                            </Link>
                                             {this.getOtherArea(item)}
                                         </TextArea>
                                     </ContentArea> :
                                     <ContentArea>
                                         <TextArea width="430px">
-                                            <Title>{item.get('title')}</Title>
-                                            <Segment>{item.get('body')}</Segment>
+                                            <Link key={item.get('title')} to={'/detail/' + item.get('_id')} style={{textDecoration: 'none'}}>
+                                                <Title>{item.get('title')}</Title>
+                                                <Segment>{item.get('body')}</Segment>
+                                            </Link>
                                             {this.getOtherArea(item)}
                                         </TextArea>
                                         <ImageArea>
