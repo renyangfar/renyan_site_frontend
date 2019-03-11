@@ -19,40 +19,52 @@ class Detail extends React.PureComponent {
     //     }
     //   }
 
+    headerView = () => {
+        return (<ViewContainer>
+            headerview
+            </ViewContainer>
+        )
+    }
+
+    editorView = () => {
+        return (
+            <Fragment>
+                <Title></Title>
+                <LabelInput></LabelInput>
+                <Label>
+                    <LabelItem>
+                        <span>kafak</span>
+                        <i>x</i>
+                    </LabelItem>
+                    <LabelItem>
+                        <span>es</span>
+                        <i>x</i>
+                    </LabelItem>
+                </Label>
+                <SelectArea>
+                    <label>私密: </label><Private></Private>
+                    <label>公开: </label><Public></Public>
+                </SelectArea>
+            </Fragment>
+        )
+    }
+
     render() {
         const { mode } = this.props;
         if (this.myCodeMirror) {
-            // this.myCodeMirror.setValue("hello world");
             this.myCodeMirror.setValue(this.props.article.get('body'));
         }
 
+
+
         return (
-            <Fragment>
+            <EditorContainer>
                 {mode === 'view' ?
-                    <ViewContainer>
-                        <textarea readonly="readonly" id={editorId} />
-                    </ViewContainer> :
-                    <EditorContainer>
-                        <Title></Title>
-                        <LabelInput></LabelInput>
-                        <Label>
-                            <LabelItem>
-                                <span>kafak</span>
-                                <i>x</i>
-                            </LabelItem>
-                            <LabelItem>
-                                <span>es</span>
-                                <i>x</i>
-                            </LabelItem>
-                        </Label>
-                        <SelectArea>
-                            <label>私密: </label><Private></Private>
-                            <label>公开: </label><Public></Public>
-                        </SelectArea>
-                        <textarea id={editorId} />
-                    </EditorContainer>
+                    this.headerView() :
+                    this.editorView()}
+                <textarea id={editorId} />
                 }
-            </Fragment>
+            </EditorContainer>
         );
     }
 
