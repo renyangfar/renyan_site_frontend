@@ -1,7 +1,7 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { actionCreators } from './store';
-import { ViewContainer, EditorContainer, Title, Public, Private, LabelInput, Label, LabelItem, SelectArea } from './style';
+import { EditorContainer, EditorHeader, LabelWrapper, Title, Public, Private, LabelInput, Label, LabelItem, SelectArea, PubPriItem } from './style';
 import * as HyperMD from 'hypermd';
 
 
@@ -19,51 +19,54 @@ class Detail extends React.PureComponent {
     //     }
     //   }
 
-    headerView = () => {
-        return (<ViewContainer>
-            headerview
-            </ViewContainer>
-        )
-    }
 
-    editorView = () => {
+    editorView = (modeView) => {
+
         return (
-            <Fragment>
-                <Title></Title>
-                <LabelInput></LabelInput>
-                <Label>
-                    <LabelItem>
-                        <span>kafak</span>
-                        <i>x</i>
-                    </LabelItem>
-                    <LabelItem>
-                        <span>es</span>
-                        <i>x</i>
-                    </LabelItem>
-                </Label>
-                <SelectArea>
-                    <label>私密: </label><Private></Private>
-                    <label>公开: </label><Public></Public>
-                </SelectArea>
-            </Fragment>
+            <EditorHeader>
+                <Title disabled={modeView ? true : false} value={this.props.title}></Title>
+                <LabelWrapper>
+                    <Label>
+                        {this.props.labels.map((item) => {
+                            return (
+                                <LabelItem>
+                                    <span>{item}</span>
+                                    {modeView ? null : <i>x</i>}
+
+                                </LabelItem>
+                            )
+                        })}
+                    </Label>
+                    {modeView ? null :
+                        <LabelInput></LabelInput>
+                    }
+                </LabelWrapper>
+                {modeView ? (this.props.isPublish ? <LabelItem>公开</LabelItem> : <LabelItem>私密</LabelItem>) :
+                    <SelectArea>
+                        <PubPriItem>
+                            <label>私密: </label><Private checked="checked"></Private>
+                        </PubPriItem>
+                        <PubPriItem>
+                            <label>公开: </label ><Public></Public>
+                        </PubPriItem>
+                    </SelectArea>
+                }
+            </EditorHeader>
         )
     }
 
     render() {
-        const { mode } = this.props;
+        const { modeView } = this.props;
         if (this.myCodeMirror) {
-            this.myCodeMirror.setValue(this.props.article.get('body'));
+            this.myCodeMirror.setValue(this.props.body);
+            if(modeView){
+                this.myCodeMirror.setOption('readOnly', true);
+            }
         }
-
-
-
         return (
             <EditorContainer>
-                {mode === 'view' ?
-                    this.headerView() :
-                    this.editorView()}
+                {this.editorView(modeView)}
                 <textarea id={editorId} />
-                }
             </EditorContainer>
         );
     }
@@ -84,17 +87,16 @@ class Detail extends React.PureComponent {
 }
 
 
-
-
-
-
-
-
-
-
 const mapState = (state) => ({
-    mode: state.getIn(['detail', 'mode']),
-    article: state.getIn(['detail', 'article']),
+    modeView: state.getIn(['detail', 'modeView']),
+    title: state.getIn(['detail', 'title']),
+    body: state.getIn(['detail', 'body']),
+    author: state.getIn(['detail', 'author']),
+    created: state.getIn(['detail', 'created']),
+    updated: state.getIn(['detail', 'updated']),
+    browse_mount: state.getIn(['detail', 'browse_mount']),
+    labels: state.getIn(['detail', 'labels']),
+    isPublish: state.getIn(['detail', 'isPublish']),
 });
 
 const mapDispatch = (dispatch) => ({

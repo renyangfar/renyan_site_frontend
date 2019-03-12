@@ -1,8 +1,9 @@
-import React, { PureComponent, Fragment } from 'react'
+import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { ArticleWrapper, ContentArea, TextArea, Title, Segment, ImageArea, OtherArea, HrLine, LoadMore } from './style';
-import { actionCreators } from './store/'
+import { actionCreators } from './store/';
+// import * as showdown from 'showdown';
 
 
 class Home extends PureComponent {
@@ -23,36 +24,27 @@ class Home extends PureComponent {
 
     render() {
         const { page, articleList, getContent } = this.props;
+        // const converter = new showdown.Converter();
         return (
             <Fragment>
                 {articleList.map((item) => {
                     return (
                         <div key={item.get('title')}>
                             <ArticleWrapper>
-                                {!item.get('img', '') ?
-                                    <ContentArea>
-                                        <TextArea width="100%">
-                                            <Link key={item.get('title')} to={'/detail/' + item.get('_id')} style={{textDecoration: 'none'}}>
-                                                <Title>{item.get('title')}</Title>
-                                                <Segment>{item.get('body')}</Segment>
-                                            </Link>
-                                            {this.getOtherArea(item)}
-                                        </TextArea>
-                                    </ContentArea> :
-                                    <ContentArea>
-                                        <TextArea width="430px">
-                                            <Link key={item.get('title')} to={'/detail/' + item.get('_id')} style={{textDecoration: 'none'}}>
-                                                <Title>{item.get('title')}</Title>
-                                                <Segment>{item.get('body')}</Segment>
-                                            </Link>
-                                            {this.getOtherArea(item)}
-                                        </TextArea>
+                                <ContentArea>
+                                    <TextArea width={item.get('img', '') ? "430px" : "100%"}>
+                                        <Link key={item.get('title')} to={'/detail/' + item.get('_id')} style={{ textDecoration: 'none' }}>
+                                            <Title>{item.get('title')}</Title>
+                                            {/* <Segment>{converter.makeHtml(item.get('body'))}</Segment> */}
+                                            <Segment>{item.get('body')}</Segment>
+                                        </Link>
+                                        {this.getOtherArea(item)}
+                                    </TextArea>
+                                    {(item.get('img', '') ?
                                         <ImageArea>
                                             <img alt='' style={{ width: "100%" }} src={item.get('img')}></img>
-                                        </ImageArea>
-                                    </ContentArea>
-                                }
-
+                                        </ImageArea> : null)}
+                                </ContentArea>
                             </ArticleWrapper>
                             <HrLine></HrLine>
                         </div>
