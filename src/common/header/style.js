@@ -15,7 +15,6 @@ export const HeaderWrapper = styled.header`
 
 export const Logo = styled.img`
     position: absolute;
-    width: 80px;
     height: 60px;
     left: 20px;
     cursor: pointer;

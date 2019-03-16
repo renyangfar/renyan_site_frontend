@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { HeaderWrapper, Logo, SearchWrapper, Blog, Login, Me } from './style';
 import { actionCreators as loginRegisterActionCreators } from '../../pages/loginRegister/store';
-import logoPic from '../../statics/logo.png'
+import logoPic from '../../statics/head.png'
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 

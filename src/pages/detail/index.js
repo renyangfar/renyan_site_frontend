@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { actionCreators } from './store';
 import { EditorContainer, EditorHeader, LabelWrapper, Title, Public, Private, LabelInput, Label, LabelItem, SelectArea, PubPriItem } from './style';
 import * as HyperMD from 'hypermd';
+import * as showdown from 'showdown';
 
 
 
@@ -29,7 +30,7 @@ class Detail extends React.PureComponent {
                     <Label>
                         {this.props.labels.map((item) => {
                             return (
-                                <LabelItem>
+                                <LabelItem key={item}>
                                     <span>{item}</span>
                                     {modeView ? null : <i>x</i>}
 
@@ -56,9 +57,21 @@ class Detail extends React.PureComponent {
     }
 
     render() {
+        // let converter = new showdown.Converter();
+        // converter.setFlavor('github');
+        // const text      = '# hello, markdown! \
+        // ```python \
+        // print ("hell world") \
+        // for i in range(10): \
+        //     print i \
+        // ``` ';
+        // const html      = converter.makeHtml(text);
+        // console.log(html);
+
         const { modeView } = this.props;
         if (this.myCodeMirror) {
             this.myCodeMirror.setValue(this.props.body);
+            console.log(this.myCodeMirror.makehtml)
             if(modeView){
                 this.myCodeMirror.setOption('readOnly', true);
             }
@@ -66,7 +79,7 @@ class Detail extends React.PureComponent {
         return (
             <EditorContainer>
                 {this.editorView(modeView)}
-                <textarea id={editorId} />
+                <textarea id={editorId}/>
             </EditorContainer>
         );
     }
@@ -81,7 +94,7 @@ class Detail extends React.PureComponent {
         });
         this.myCodeMirror.setSize(1020, 900);
         this.myCodeMirror.on('change', (editor) => {
-            console.log(editor.getValue());
+            // console.log(editor.getValue());
         });
     }
 }
