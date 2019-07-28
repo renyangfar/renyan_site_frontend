@@ -2,23 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { actionCreators } from './store';
 import { EditorContainer, EditorHeader, LabelWrapper, Title, Public, Private, LabelInput, Label, LabelItem, SelectArea, PubPriItem } from './style';
-import * as HyperMD from 'hypermd';
-import * as showdown from 'showdown';
 
 
-
-const editorId = 'renyan';
 
 class Detail extends React.PureComponent {
-
-    // componentDidUpdate() {
-    //     if (this.myCodeMirror) {
-    //       const value = this.myCodeMirror.getValue();
-    //       if (this.props.article.get('body') !== value) {
-    //         this.myCodeMirror.setValue(data.data);
-    //       }
-    //     }
-    //   }
 
 
     editorView = (modeView) => {
@@ -57,45 +44,15 @@ class Detail extends React.PureComponent {
     }
 
     render() {
-        // let converter = new showdown.Converter();
-        // converter.setFlavor('github');
-        // const text      = '# hello, markdown! \
-        // ```python \
-        // print ("hell world") \
-        // for i in range(10): \
-        //     print i \
-        // ``` ';
-        // const html      = converter.makeHtml(text);
-        // console.log(html);
-
         const { modeView } = this.props;
-        if (this.myCodeMirror) {
-            this.myCodeMirror.setValue(this.props.body);
-            console.log(this.myCodeMirror.makehtml)
-            if(modeView){
-                this.myCodeMirror.setOption('readOnly', true);
-            }
-        }
         return (
             <EditorContainer>
                 {this.editorView(modeView)}
-                <textarea id={editorId}/>
             </EditorContainer>
         );
     }
 
     componentDidMount() {
-        this.props.getDetail(this.props.match.params.id);
-
-        let myTextarea = document.getElementById(editorId);
-        this.myCodeMirror = HyperMD.fromTextArea(myTextarea, {
-            lineNumbers: !!this.props.showLineNumber,
-            hmdModeLoader: false
-        });
-        this.myCodeMirror.setSize(1020, 900);
-        this.myCodeMirror.on('change', (editor) => {
-            // console.log(editor.getValue());
-        });
     }
 }
 

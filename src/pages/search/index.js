@@ -66,6 +66,7 @@ class Search extends React.Component {
                     return (
                         <div key={item.get('title')}>
                             <ArticleWrapper>
+                            <Link key={item.get('title')} to={'/detail/' + item.get('_id')} style={{ textDecoration: 'none' }}>
                                 {!item.get('img', '') ?
                                     <ContentArea>
                                         <TextArea width="100%">
@@ -80,8 +81,9 @@ class Search extends React.Component {
                                             <img alt='' style={{ width: "100%" }} src={item.get('img')}></img>
                                         </ImageArea>
                                     </ContentArea>
-                                }
 
+                                }
+                                    </Link>
                             </ArticleWrapper>
                             <HrLine></HrLine>
                         </div>
