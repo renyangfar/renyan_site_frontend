@@ -76,11 +76,3 @@ export const EditButton = styled.div`
     cursor: pointer;
 `
 
-export const SaveButton = styled.div`
-    position: absolute;
-    left: 940px;
-    font-size: 16px;
-    line-height: 60px;
-    cursor: pointer;
-`
-

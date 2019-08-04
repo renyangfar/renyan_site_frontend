@@ -87,3 +87,9 @@ export const Public = styled.input.attrs({
 })`
 
 `
+
+export const Save = styled.button`
+    position: relative;  
+    height: 40px;
+    width: 60px;
+`

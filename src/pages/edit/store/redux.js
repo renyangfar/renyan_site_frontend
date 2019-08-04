@@ -2,7 +2,6 @@ import { fromJS } from 'immutable';
 import * as constants from './constants';
 
 const defaultState = fromJS({
-    _id: '',
     title: '',
     body: '',
     author: '',
@@ -18,7 +17,6 @@ export default (state = defaultState, action) => {
         case constants.CHANGE_DETAIL:
             const data = action.data;
             return state.merge({
-                _id: data._id,
                 title: data.title,
                 body: data.body,
                 author: data.author,

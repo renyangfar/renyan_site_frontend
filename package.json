@@ -34,5 +34,5 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "proxy": "http://149.129.119.37:80"
+  "proxy": "http://www.renyan.site:8080"
 }

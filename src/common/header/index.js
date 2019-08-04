@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
-import { HeaderWrapper, Logo, SearchWrapper, Blog, Login, Me, EditButton, SaveButton } from './style';
+import { HeaderWrapper, Logo, SearchWrapper, Blog, Login, Me, EditButton } from './style';
 import { actionCreators as loginRegisterActionCreators } from '../../pages/loginRegister/store';
 import logoPic from '../../statics/head.png'
 import { withRouter } from 'react-router-dom';
@@ -50,7 +50,7 @@ class Header extends Component {
 						<Link to='/edit'>
 						<EditButton>编辑</EditButton> 
 						</Link>
-						: location==='edit' ? <SaveButton>保存</SaveButton> : null
+						 : null
 					}
 					<Link to='/loginRegister'>
 						{login ? <Login onClick={this.props.logout}>退出</Login> :
@@ -65,7 +65,7 @@ class Header extends Component {
 const mapStateToProps = (state) => {
 	return {
 		login: state.get('loginRegister').get('login'),
-		location: state.get('home').get('location')
+		location: state.get('home').get('location'),
 	}
 }
 
@@ -76,7 +76,7 @@ const mapDispathToProps = (dispatch) => {
 		},
 		setLoginStat(login) {
 			dispatch(loginRegisterActionCreators.setLoginStat(login))
-		}
+		},
 	}
 }
 

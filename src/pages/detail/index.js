@@ -28,7 +28,6 @@ class Detail extends React.PureComponent {
 
 
 const mapState = (state) => ({
-    modeView: state.getIn(['detail', 'modeView']),
     title: state.getIn(['detail', 'title']),
     body: state.getIn(['detail', 'body']),
     author: state.getIn(['detail', 'author']),

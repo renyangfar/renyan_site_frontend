@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { EditorContainer, EditorHeader, LabelWrapper, Title, Public, Private, LabelInput, Label, LabelItem, SelectArea, PubPriItem } from './style';
+import { actionCreators as homeActionCreators } from '../../pages/home/store';
+import { actionCreators } from './store'
+import { EditorContainer, EditorHeader, LabelWrapper, Title, Public, Private, LabelInput, Label, LabelItem, SelectArea, PubPriItem, Save } from './style';
 
 import 'codemirror/lib/codemirror.css';
 import 'tui-editor/dist/tui-editor.min.css';
@@ -9,38 +11,46 @@ import { Editor } from '@toast-ui/react-editor'
 
 
 class Edit extends React.PureComponent {
-    editorView = (modeView) => {
+    editorRef = React.createRef();
+    editorView = () => {
         return (
             <EditorHeader>
-                <Title disabled={modeView ? true : false} value={this.props.title}></Title>
+                <Title defaultValue={this.props.title} ref={(input) => { this.titleInput = input }}></Title>
                 <LabelWrapper>
                     <Label>
                         {this.props.labels.map((item) => {
                             return (
                                 <LabelItem key={item}>
                                     <span>{item}</span>
-                                    {modeView ? null : <i>x</i>}
+                                    {<i>x</i>}
 
                                 </LabelItem>
                             )
                         })}
                     </Label>
-                    {modeView ? null :
-                        <LabelInput></LabelInput>
-                    }
+                    <LabelInput ref={(input) => { this.lableInput = input }}></LabelInput>
                 </LabelWrapper>
-                {modeView ? (this.props.isPublish ? <LabelItem>公开</LabelItem> : <LabelItem>私密</LabelItem>) :
                     <SelectArea>
-                        <PubPriItem>
-                            <label>私密: </label><Private checked="checked"></Private>
+                        <PubPriItem ref={(input) => { this.isPublish = input }}>
+                            <label>私密: </label><Private defaultChecked></Private>
                         </PubPriItem>
                         <PubPriItem>
                             <label>公开: </label ><Public></Public>
                         </PubPriItem>
                     </SelectArea>
-                }
+                    <Save onClick={()=>this.save_article()}>保存</Save>
             </EditorHeader>
         )
+    }   
+
+    save_article = () => {
+
+        let body = this.editorRef.current.getInstance().getValue();
+        let article = JSON.parse(JSON.stringify(this.props.detail))
+        article["title"] = this.titleInput.value;
+        article["body"] = body;
+        console.table(article);
+        this.props.post_article(article)
     }
 
     MyComponent = () => (
@@ -51,6 +61,8 @@ class Edit extends React.PureComponent {
           height="800px"
           initialEditType="markdown"
           useCommandShortcut={true}
+          usageStatistics={false} 
+          ref={this.editorRef}
           exts={[
             {
               name: 'chart',
@@ -68,20 +80,27 @@ class Edit extends React.PureComponent {
         />
       );
 
+
     render() {
-        const {title, body} = this.props
         return (
+            <Fragment>
             <EditorContainer>
+                {this.editorView()}
                 {this.MyComponent()}
-                {this.MyComponent.initialValue=body}
             </EditorContainer>
+            </Fragment>
         );
+    }
+
+    componentDidMount() {
+        this.props.changeLocation('edit');
+        this.editorRef.current.getInstance().setValue(this.props.body)
     }
 }
 
 
 const mapState = (state) => ({
-    modeView: state.getIn(['detail', 'modeView']),
+    detail: state.get('detail'),
     title: state.getIn(['detail', 'title']),
     body: state.getIn(['detail', 'body']),
     author: state.getIn(['detail', 'author']),
@@ -92,7 +111,15 @@ const mapState = (state) => ({
     isPublish: state.getIn(['detail', 'isPublish']),
 });
 
-const mapDispatch = (dispatch) => ({
+
+const mapDispatch = (dispatch) => (
+    {
+    changeLocation(location) {
+        dispatch(homeActionCreators.changeLocation(location))
+    },
+    post_article(article) {
+        dispatch(actionCreators.save_article(article))
+    }
 });
 
 export default connect(mapState, mapDispatch)(Edit);
