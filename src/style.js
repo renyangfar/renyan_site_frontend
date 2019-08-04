@@ -3,7 +3,7 @@ import styled, { createGlobalStyle } from 'styled-components'
 export const Page = styled.div`
 	position: relative;
 	margin: auto;
-	width: 1024px;
+	width: 100%;
 	height: 100%;
 `
 

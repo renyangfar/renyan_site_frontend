@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
-import { HeaderWrapper, Logo, SearchWrapper, Blog, Login, Me } from './style';
+import { HeaderWrapper, Logo, SearchWrapper, Blog, Login, Me, EditButton, SaveButton } from './style';
 import { actionCreators as loginRegisterActionCreators } from '../../pages/loginRegister/store';
 import logoPic from '../../statics/head.png'
 import { withRouter } from 'react-router-dom';
@@ -34,7 +34,7 @@ class Header extends Component {
 
 
 	render() {
-		const { login } = this.props;
+		const { login, location } = this.props;
 		return (
 			<Fragment>
 				<HeaderWrapper>
@@ -45,6 +45,13 @@ class Header extends Component {
 					</SearchWrapper>
 					<Blog>我的博客</Blog>
 					<Me>我的</Me>
+					{
+						location==='detail' ? 
+						<Link to='/edit'>
+						<EditButton>编辑</EditButton> 
+						</Link>
+						: location==='edit' ? <SaveButton>保存</SaveButton> : null
+					}
 					<Link to='/loginRegister'>
 						{login ? <Login onClick={this.props.logout}>退出</Login> :
 							<Login>登录</Login>}
@@ -57,7 +64,8 @@ class Header extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		login: state.get('loginRegister').get('login')
+		login: state.get('loginRegister').get('login'),
+		location: state.get('home').get('location')
 	}
 }
 

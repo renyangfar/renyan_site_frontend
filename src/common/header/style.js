@@ -7,6 +7,8 @@ export const HeaderWrapper = styled.header`
     top: 0px;
     width: 1024px;
     height: 60px;
+    margin-left: auto;
+    margin-right: auto;
     margin-bottom: 80px;
     box-shadow: rgba(0,0,0, 0.05) 2px 2px 2px 1px;
     color: #009688;
@@ -48,7 +50,7 @@ export const Blog = styled.span`
 
 export const Login = styled.div`
     position: absolute;
-    left: 850px;
+    left: 780px;
     font-size: 16px;
     line-height: 60px;
     cursor: pointer;
@@ -60,10 +62,25 @@ export const Login = styled.div`
 
 export const Me = styled.div`
     position: absolute;
-    left: 950px;
+    left: 860px;
     font-size: 16px;
     line-height: 60px;
     cursor: pointer;
 `
 
+export const EditButton = styled.div`
+    position: absolute;
+    left: 940px;
+    font-size: 16px;
+    line-height: 60px;
+    cursor: pointer;
+`
+
+export const SaveButton = styled.div`
+    position: absolute;
+    left: 940px;
+    font-size: 16px;
+    line-height: 60px;
+    cursor: pointer;
+`
 

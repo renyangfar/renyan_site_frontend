@@ -4,6 +4,7 @@ import * as constants from './constants';
 const defaultState = fromJS({
     articleList: [],
     page: 0,
+    location: ''
 })
 
 export default (state = defaultState, action) => {
@@ -21,6 +22,8 @@ export default (state = defaultState, action) => {
                 articleList: articleList.concat(fromJS(action.value)),
                 page: state.get('page') + 1
             })
+        case constants.CHANGE_LOCATION:
+            return state.set('location', action.location)
         default:
             return state
     }

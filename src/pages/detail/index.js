@@ -1,58 +1,28 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { actionCreators } from './store';
-import { EditorContainer, EditorHeader, LabelWrapper, Title, Public, Private, LabelInput, Label, LabelItem, SelectArea, PubPriItem } from './style';
-
-
+import { actionCreators as homeActionCreators } from '../../pages/home/store';
+import { Container, Title, Body } from './style';
 
 class Detail extends React.PureComponent {
-
-
-    editorView = (modeView) => {
-
-        return (
-            <EditorHeader>
-                <Title disabled={modeView ? true : false} value={this.props.title}></Title>
-                <LabelWrapper>
-                    <Label>
-                        {this.props.labels.map((item) => {
-                            return (
-                                <LabelItem key={item}>
-                                    <span>{item}</span>
-                                    {modeView ? null : <i>x</i>}
-
-                                </LabelItem>
-                            )
-                        })}
-                    </Label>
-                    {modeView ? null :
-                        <LabelInput></LabelInput>
-                    }
-                </LabelWrapper>
-                {modeView ? (this.props.isPublish ? <LabelItem>公开</LabelItem> : <LabelItem>私密</LabelItem>) :
-                    <SelectArea>
-                        <PubPriItem>
-                            <label>私密: </label><Private checked="checked"></Private>
-                        </PubPriItem>
-                        <PubPriItem>
-                            <label>公开: </label ><Public></Public>
-                        </PubPriItem>
-                    </SelectArea>
-                }
-            </EditorHeader>
-        )
-    }
-
     render() {
-        const { modeView } = this.props;
+    const { title, body } = this.props;
         return (
-            <EditorContainer>
-                {this.editorView(modeView)}
-            </EditorContainer>
+            <Container>
+                <Title>{title}</Title>
+                <Body>{body}</Body>
+            </Container>
         );
-    }
+    };
 
     componentDidMount() {
+        this.props.getDetail(this.props.match.params.id);
+        this.props.changeLocation('detail');
+    }
+
+    componentWillUnmount() {
+        this.props.changeLocation('');
+
     }
 }
 
@@ -69,10 +39,15 @@ const mapState = (state) => ({
     isPublish: state.getIn(['detail', 'isPublish']),
 });
 
-const mapDispatch = (dispatch) => ({
+const mapDispatch = (dispatch) => (
+    {
+    changeLocation(location) {
+        dispatch(homeActionCreators.changeLocation(location))
+    },
     getDetail(id) {
         dispatch(actionCreators.getDetail(id));
     }
 });
+
 
 export default connect(mapState, mapDispatch)(Detail);

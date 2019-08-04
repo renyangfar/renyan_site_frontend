@@ -6,6 +6,11 @@ const changeHomeData = (data, page) => ({
     value: data,
     page: page
 })
+
+const changeLocationState = (location) => ({
+    type: constants.CHANGE_LOCATION,
+    location: location
+})
 export const getContent = (page) => {
     return (dispatch) => {
         axios({
@@ -24,5 +29,11 @@ export const getContent = (page) => {
         }).catch((e) => {
             console.error(e);
         })
+    }
+}
+
+export const changeLocation = (location) => {
+    return (dispatch) => {
+        dispatch(changeLocationState(location))
     }
 }
