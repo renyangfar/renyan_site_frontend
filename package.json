@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@toast-ui/react-editor": "^1.0.1",
     "axios": "^0.18.0",
     "immutable": "^4.0.0-rc.12",
+    "markdown-it": "^9.0.1",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
     "react-highlight-words": "^0.16.0",

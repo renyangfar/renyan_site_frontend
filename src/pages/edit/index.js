@@ -4,14 +4,8 @@ import { actionCreators as homeActionCreators } from '../../pages/home/store';
 import { actionCreators } from './store'
 import { EditorContainer, EditorHeader, LabelWrapper, Title, Public, Private, LabelInput, Label, LabelItem, SelectArea, PubPriItem, Save } from './style';
 
-import 'codemirror/lib/codemirror.css';
-import 'tui-editor/dist/tui-editor.min.css';
-import 'tui-editor/dist/tui-editor-contents.min.css';
-import { Editor } from '@toast-ui/react-editor'
-
-
 class Edit extends React.PureComponent {
-    editorRef = React.createRef();
+
     editorView = () => {
         return (
             <EditorHeader>
@@ -30,18 +24,18 @@ class Edit extends React.PureComponent {
                     </Label>
                     <LabelInput ref={(input) => { this.lableInput = input }}></LabelInput>
                 </LabelWrapper>
-                    <SelectArea>
-                        <PubPriItem ref={(input) => { this.isPublish = input }}>
-                            <label>私密: </label><Private defaultChecked></Private>
-                        </PubPriItem>
-                        <PubPriItem>
-                            <label>公开: </label ><Public></Public>
-                        </PubPriItem>
-                    </SelectArea>
-                    <Save onClick={()=>this.save_article()}>保存</Save>
+                <SelectArea>
+                    <PubPriItem ref={(input) => { this.isPublish = input }}>
+                        <label>私密: </label><Private defaultChecked></Private>
+                    </PubPriItem>
+                    <PubPriItem>
+                        <label>公开: </label ><Public></Public>
+                    </PubPriItem>
+                </SelectArea>
+                <Save onClick={() => this.save_article()}>保存</Save>
             </EditorHeader>
         )
-    }   
+    }
 
     save_article = () => {
 
@@ -53,48 +47,16 @@ class Edit extends React.PureComponent {
         this.props.post_article(article)
     }
 
-    MyComponent = () => (
-        <Editor
-          initialValue="加载中..."
-          previewStyle="vertical"
-          width="100%"
-          height="800px"
-          initialEditType="markdown"
-          useCommandShortcut={true}
-          usageStatistics={false} 
-          ref={this.editorRef}
-          exts={[
-            {
-              name: 'chart',
-              minWidth: 100,
-              maxWidth: 600,
-              minHeight: 100,
-              maxHeight: 300
-            },
-            'scrollSync',
-            'colorSyntax',
-            'uml',
-            'mark',
-            'table'
-          ]}
-        />
-      );
-
-
     render() {
         return (
-            <Fragment>
             <EditorContainer>
                 {this.editorView()}
-                {this.MyComponent()}
             </EditorContainer>
-            </Fragment>
-        );
+        )
     }
 
     componentDidMount() {
         this.props.changeLocation('edit');
-        this.editorRef.current.getInstance().setValue(this.props.body)
     }
 }
 
@@ -114,12 +76,12 @@ const mapState = (state) => ({
 
 const mapDispatch = (dispatch) => (
     {
-    changeLocation(location) {
-        dispatch(homeActionCreators.changeLocation(location))
-    },
-    post_article(article) {
-        dispatch(actionCreators.save_article(article))
-    }
-});
+        changeLocation(location) {
+            dispatch(homeActionCreators.changeLocation(location))
+        },
+        post_article(article) {
+            dispatch(actionCreators.save_article(article))
+        }
+    });
 
 export default connect(mapState, mapDispatch)(Edit);

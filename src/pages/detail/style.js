@@ -20,9 +20,5 @@ export const Title = styled.header`
     font-size: 20px;
 `
 
-export const Body = styled.h2`
-    font-size: 14px;
-    line-height: 21px;
-    color: rgb(89, 89, 89);
-    overflow: hidden;
+export const Body = styled.div`
 `

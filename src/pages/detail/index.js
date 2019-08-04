@@ -4,16 +4,25 @@ import { actionCreators } from './store';
 import { actionCreators as homeActionCreators } from '../../pages/home/store';
 import { Container, Title, Body } from './style';
 
-class Detail extends React.PureComponent {
+import MarkdownIt from 'markdown-it'
+
+
+class Detail extends React.Component {
+    constructor(props) {
+        super(props)
+        this.mdParser = new MarkdownIt(/* Markdown-it options */)
+    }
+
     render() {
-    const { title, body } = this.props;
+        const { title, body } = this.props
+        let html = this.mdParser.render(body)
         return (
             <Container>
                 <Title>{title}</Title>
-                <Body>{body}</Body>
-            </Container>
-        );
-    };
+                <Body dangerouslySetInnerHTML={{ __html: html }} />;
+      </Container>
+        )
+    }
 
     componentDidMount() {
         this.props.getDetail(this.props.match.params.id);
@@ -22,9 +31,9 @@ class Detail extends React.PureComponent {
 
     componentWillUnmount() {
         this.props.changeLocation('');
-
     }
 }
+
 
 
 const mapState = (state) => ({
@@ -40,13 +49,13 @@ const mapState = (state) => ({
 
 const mapDispatch = (dispatch) => (
     {
-    changeLocation(location) {
-        dispatch(homeActionCreators.changeLocation(location))
-    },
-    getDetail(id) {
-        dispatch(actionCreators.getDetail(id));
-    }
-});
+        changeLocation(location) {
+            dispatch(homeActionCreators.changeLocation(location))
+        },
+        getDetail(id) {
+            dispatch(actionCreators.getDetail(id));
+        }
+    });
 
 
 export default connect(mapState, mapDispatch)(Detail);
